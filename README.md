@@ -1,122 +1,160 @@
-# 🚀 RAG Agent System
+# 🧠 RAG Agent System
 
-A production-grade **Retrieval-Augmented Generation (RAG)** and **AI Agent orchestration platform** built with **FastAPI**, **Azure OpenAI**, and **ChromaDB**.
+> Production-grade Retrieval-Augmented Generation (RAG) and Agentic AI platform built with **FastAPI**, **Azure OpenAI**, **ChromaDB**, and **LangGraph**.
 
-> Enterprise-ready RAG and Agent orchestration system showcasing advanced retrieval, reasoning, and multi-agent execution patterns.
-
-This system enables:
-- Advanced document retrieval
-- Context-aware AI responses
-- Multi-agent workflows
-- Production-ready streaming APIs
-
-Designed for enterprise-grade use cases such as:
-- Knowledge assistants  
-- Document intelligence  
-- Enterprise copilots  
-- Multi-agent automation systems  
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.11+-blue?logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/FastAPI-Async-green?logo=fastapi" />
+  <img src="https://img.shields.io/badge/Azure-OpenAI-blue" />
+  <img src="https://img.shields.io/badge/ChromaDB-Vector%20Store-purple" />
+  <img src="https://img.shields.io/badge/LangGraph-Agentic-orange" />
+  <img src="https://img.shields.io/badge/License-MIT-success" />
+</p>
 
 ---
 
-## ✨ Features
+## 🚀 Overview
 
-### Advanced RAG Pipelines
-Supports multiple retrieval strategies for different workloads:
+An enterprise-grade **RAG + Agent Orchestration API** designed to support advanced retrieval, multi-step reasoning, tool execution, and multi-agent collaboration.
 
-- Naive RAG
-- Advanced RAG
-- Corrective RAG (CRAG)
-- Self-RAG
-- HyDE
-- Multi-Query RAG
-- GraphRAG
+This system provides:
 
----
+- 🔍 Advanced retrieval pipelines  
+- 🤖 Agentic task execution  
+- 🧠 Memory-aware conversations  
+- 📡 Streaming chat APIs  
+- 📄 Intelligent document ingestion  
 
-### Agentic AI Workflows
-Supports modern agent orchestration patterns:
-
-- ReAct Agent
-- Plan-and-Execute Agent
-- Reflection Agent
-- Supervisor Agent
-- RAG Agent
-- Multi-Agent Collaboration
+Built for:
+- Enterprise copilots
+- Knowledge assistants
+- Research systems
+- AI-powered internal search
+- Agentic workflows
 
 ---
 
-### Intelligent Document Processing
-- PDF / DOCX / TXT ingestion
-- Semantic chunking
-- Embedding generation
-- Vector indexing with ChromaDB
-
----
-
-### Production Features
-- Async APIs with FastAPI
-- SSE streaming support
-- Azure OpenAI integration
-- Memory management
-- Tool registry support
-- Dockerized deployment
-- Structured logging
-
----
-
-# 🏗️ Architecture
+# 🏗️ System Architecture
 
 ```bash
 rag-agent-system/
 ├── app/
-│   ├── api/                # REST endpoints
-│   ├── core/               # RAG + Agents logic
-│   ├── services/           # External service integrations
-│   ├── config/             # Settings & logging
-│   └── models/             # Request/response schemas
+│   ├── api/v1/endpoints/
+│   ├── core/
+│   │   ├── rag/
+│   │   ├── agents/
+│   │   ├── chunking/
+│   │   ├── memory/
+│   │   └── tools/
+│   ├── services/
+│   ├── config/
+│   └── models/
 │
-├── docker/                 # Docker setup
-├── tests/                  # Test cases
-├── requirements.txt
-└── .env.example
+├── docker/
+├── tests/
+└── requirements.txt
 ```
 
 ---
 
-## System Flow
+## ⚙️ Request Lifecycle
 
 ```text
-Documents → Chunking → Embeddings → Vector Store
-                                   ↓
-User Query → RAG / Agents → Retrieval → LLM → Response
+                    ┌──────────────────────┐
+                    │   User Query / Task  │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │ Query Understanding  │
+                    └──────────┬───────────┘
+                               │
+              ┌────────────────┴────────────────┐
+              ▼                                 ▼
+     ┌──────────────────┐              ┌──────────────────┐
+     │   RAG Pipeline   │              │   Agent Pipeline │
+     └──────────────────┘              └──────────────────┘
+              │                                 │
+              └──────────────┬──────────────────┘
+                             ▼
+                    ┌──────────────────────┐
+                    │ Azure OpenAI / LLM   │
+                    └──────────┬───────────┘
+                               ▼
+                    ┌──────────────────────┐
+                    │ Final Response       │
+                    └──────────────────────┘
 ```
 
 ---
 
-# 🧠 Supported RAG Strategies
+# 🔍 RAG Strategies
+
+Supports multiple retrieval strategies optimized for different workloads.
 
 | Strategy | Description |
 |----------|-------------|
-| Naive RAG | Basic retrieve + generate |
-| Advanced RAG | Hybrid retrieval + reranking |
-| Corrective RAG | Query correction + relevance grading |
-| Self-RAG | Self-evaluation based retrieval |
+| Naive RAG | Embed → Retrieve → Generate |
+| Advanced RAG | Hybrid retrieval + RRF + reranking |
+| CRAG | Corrective retrieval with query rewrite |
+| Self-RAG | LLM-guided retrieval evaluation |
 | HyDE | Hypothetical document embeddings |
-| Multi-Query RAG | Query expansion for better recall |
-| GraphRAG | Graph-based multi-hop reasoning |
+| Multi-Query RAG | Query expansion |
+| GraphRAG | Multi-hop graph traversal |
 
 ---
 
-# 🤖 Supported Agent Patterns
+## RAG Flow
 
-| Agent Type | Description |
-|------------|-------------|
-| ReAct | Reasoning + tool usage loop |
-| Plan-and-Execute | Planning before execution |
-| Reflection | Self-critique and refinement |
-| Supervisor | Task routing to sub-agents |
-| RAG Agent | Retrieval-first agent |
-| Multi-Agent | Parallel specialized agents |
+```text
+Documents
+   │
+   ▼
+Chunking
+   │
+   ▼
+Embedding Generation
+   │
+   ▼
+ChromaDB Storage
+   │
+   ▼
+Retriever → Reranker → LLM → Response
+```
+
+---
+
+# 🤖 Agent Patterns
+
+Supports advanced agentic execution patterns.
+
+| Agent | Description |
+|-------|-------------|
+| ReAct | Thought → Action → Observation |
+| Plan-and-Execute | Plan first, execute stepwise |
+| Reflection | Self-correction loops |
+| Supervisor | Dynamic task routing |
+| RAG Agent | Retrieval-first reasoning |
+| Multi-Agent | Parallel specialist collaboration |
+
+---
+
+## Multi-Agent Flow
+
+```text
+Task
+ │
+ ▼
+Supervisor Agent
+ │
+ ├── Research Agent
+ ├── Retrieval Agent
+ ├── Calculator Agent
+ └── Summarizer Agent
+          │
+          ▼
+   Final Synthesized Response
+```
 
 ---
 
@@ -124,83 +162,23 @@ User Query → RAG / Agents → Retrieval → LLM → Response
 
 | Strategy | Description |
 |----------|-------------|
-| Recursive | Recursive split with overlap |
-| Semantic | Embedding similarity-based splitting |
-| Parent-Child | Parent-child chunk hierarchy |
-| Sentence Window | Sentence retrieval with context window |
+| Recursive | Recursive text splitting |
+| Semantic | Embedding similarity based |
+| Parent Child | Parent-child retrieval |
+| Sentence Window | Context-aware sentence retrieval |
 
 ---
 
-# ⚙️ Tech Stack
+# 🛠️ Core Tech Stack
 
 | Layer | Technology |
 |-------|------------|
-| API | FastAPI |
+| Backend | FastAPI |
 | LLM | Azure OpenAI |
 | Vector DB | ChromaDB |
 | Agent Framework | LangChain / LangGraph |
-| Reranking | FlashRank / Cohere |
-| Embeddings | Sentence Transformers |
-| Document Parsing | PyMuPDF |
-
----
-
-# 🚀 Quick Start
-
-## 1. Clone Repository
-
-```bash
-git clone <repo-url>
-cd rag-agent-system
-```
-
----
-
-## 2. Configure Environment
-
-```bash
-cp .env.example .env
-```
-
-Configure:
-
-```env
-AZURE_OPENAI_API_KEY=
-AZURE_OPENAI_ENDPOINT=
-AZURE_OPENAI_DEPLOYMENT=
-CHROMA_DB_PATH=
-```
-
----
-
-## 3. Install Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
----
-
-## 4. Run Locally
-
-```bash
-uvicorn app.main:app --reload --port 8000
-```
-
-Open Swagger UI:
-
-```bash
-http://localhost:8000/docs
-```
-
----
-
-## 5. Run with Docker
-
-```bash
-cd docker
-docker-compose up --build
-```
+| Reranker | FlashRank / Cohere |
+| Parsing | PyMuPDF |
 
 ---
 
@@ -208,74 +186,102 @@ docker-compose up --build
 
 | Endpoint | Description |
 |----------|-------------|
-| `/documents/ingest` | Upload and process documents |
-| `/rag/query` | Query using selected RAG strategy |
-| `/agents/run` | Execute agent workflows |
-| `/chat` | Standard chat |
-| `/chat/stream` | Streaming chat |
+| `/documents/ingest` | Upload documents |
+| `/rag/query` | Execute RAG queries |
+| `/agents/run` | Run agents |
+| `/chat` | Chat API |
+| `/chat/stream` | SSE streaming |
 
 ---
 
-# Example Usage
+# 🚀 Quick Start
 
-## Document Upload
+## Setup
 
 ```bash
-curl -X POST http://localhost:8000/api/v1/documents/ingest \
--F "file=@report.pdf" \
--F "collection_name=mydata" \
--F "chunk_strategy=sentence_window"
+cp .env.example .env
+```
+
+Fill:
+
+```env
+AZURE_OPENAI_API_KEY=
+AZURE_OPENAI_ENDPOINT=
+AZURE_OPENAI_DEPLOYMENT=
+```
+
+Install:
+
+```bash
+pip install -r requirements.txt
+```
+
+Run:
+
+```bash
+uvicorn app.main:app --reload --port 8000
+```
+
+Swagger UI:
+
+```bash
+http://localhost:8000/docs
 ```
 
 ---
 
-## RAG Query
+# Example APIs
+
+### Document Ingestion
+
+```bash
+curl -X POST http://localhost:8000/api/v1/documents/ingest \
+-F "file=@report.pdf" \
+-F "collection_name=mydata"
+```
+
+### RAG Query
 
 ```bash
 curl -X POST http://localhost:8000/api/v1/rag/query \
 -H "Content-Type: application/json" \
 -d '{
-  "query": "What are the key findings?",
-  "strategy": "corrective",
-  "collection_name": "mydata",
-  "top_k": 5
+ "query":"What are the key findings?",
+ "strategy":"advanced"
 }'
 ```
 
----
-
-## Agent Execution
+### Agent Run
 
 ```bash
 curl -X POST http://localhost:8000/api/v1/agents/run \
 -H "Content-Type: application/json" \
 -d '{
-  "task": "Summarize document insights",
-  "agent_type": "rag_agent",
-  "max_iterations": 8
+ "task":"Analyze and summarize uploaded docs",
+ "agent_type":"rag_agent"
 }'
 ```
 
 ---
 
-# 🔥 Use Cases
+# 🔥 Key Features
 
-- Enterprise AI copilots  
-- AI knowledge assistants  
-- Customer support bots  
-- Research assistants  
-- Multi-agent automation systems  
-- Internal documentation search  
+- 7 RAG strategies  
+- 6 agent architectures  
+- Streaming responses  
+- Tool integration  
+- Memory support  
+- Production-ready deployment  
 
 ---
 
-# Future Enhancements
+# 🎯 Use Cases
 
-- Multi-modal RAG  
-- Graph database integration  
-- Agent memory persistence  
-- Evaluation dashboards  
-- Observability & tracing  
+- Enterprise AI Copilot  
+- Document Intelligence  
+- Internal Knowledge Search  
+- AI Research Assistant  
+- Agentic Automation  
 
 ---
 
