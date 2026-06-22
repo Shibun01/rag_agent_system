@@ -1,106 +1,201 @@
-# RAG Agent System
+# 🚀 RAG Agent System
 
-Production-grade **Retrieval-Augmented Generation** and **Agents** API built with
-**FastAPI** + **Azure OpenAI** + **ChromaDB**.
+A production-grade **Retrieval-Augmented Generation (RAG)** and **AI Agent orchestration platform** built with **FastAPI**, **Azure OpenAI**, and **ChromaDB**.
+
+> Enterprise-ready RAG and Agent orchestration system showcasing advanced retrieval, reasoning, and multi-agent execution patterns.
+
+This system enables:
+- Advanced document retrieval
+- Context-aware AI responses
+- Multi-agent workflows
+- Production-ready streaming APIs
+
+Designed for enterprise-grade use cases such as:
+- Knowledge assistants  
+- Document intelligence  
+- Enterprise copilots  
+- Multi-agent automation systems  
 
 ---
 
-## Architecture Overview
+## ✨ Features
 
-```
+### Advanced RAG Pipelines
+Supports multiple retrieval strategies for different workloads:
+
+- Naive RAG
+- Advanced RAG
+- Corrective RAG (CRAG)
+- Self-RAG
+- HyDE
+- Multi-Query RAG
+- GraphRAG
+
+---
+
+### Agentic AI Workflows
+Supports modern agent orchestration patterns:
+
+- ReAct Agent
+- Plan-and-Execute Agent
+- Reflection Agent
+- Supervisor Agent
+- RAG Agent
+- Multi-Agent Collaboration
+
+---
+
+### Intelligent Document Processing
+- PDF / DOCX / TXT ingestion
+- Semantic chunking
+- Embedding generation
+- Vector indexing with ChromaDB
+
+---
+
+### Production Features
+- Async APIs with FastAPI
+- SSE streaming support
+- Azure OpenAI integration
+- Memory management
+- Tool registry support
+- Dockerized deployment
+- Structured logging
+
+---
+
+# 🏗️ Architecture
+
+```bash
 rag-agent-system/
 ├── app/
-│   ├── main.py                        # FastAPI app, lifespan, CORS
-│   ├── config/                        # Settings (pydantic-settings) + structured logging
-│   ├── api/v1/endpoints/
-│   │   ├── rag.py                     # POST /api/v1/rag/query
-│   │   ├── agents.py                  # POST /api/v1/agents/run
-│   │   ├── documents.py               # POST /api/v1/documents/ingest
-│   │   └── chat.py                    # POST /api/v1/chat  (+ /stream SSE)
-│   ├── core/
-│   │   ├── rag/                       # All RAG strategies (see below)
-│   │   ├── agents/                    # All agent patterns (see below)
-│   │   ├── chunking/strategies.py     # 4 chunking strategies
-│   │   ├── memory/conversation.py     # Short-term + long-term memory
-│   │   └── tools/registry.py         # Tool registry (calculator, web search, …)
-│   ├── services/
-│   │   ├── azure_openai.py            # Async Azure OpenAI client wrapper
-│   │   ├── vector_store.py            # ChromaDB vector store abstraction
-│   │   ├── reranker.py                # FlashRank (local) / Cohere reranker
-│   │   └── document_processor.py     # PDF / DOCX / TXT extraction
-│   └── models/schemas.py             # Pydantic request/response models
-├── docker/
-│   ├── Dockerfile
-│   └── docker-compose.yml
-├── tests/
-├── .env.example
-└── requirements.txt
+│   ├── api/                # REST endpoints
+│   ├── core/               # RAG + Agents logic
+│   ├── services/           # External service integrations
+│   ├── config/             # Settings & logging
+│   └── models/             # Request/response schemas
+│
+├── docker/                 # Docker setup
+├── tests/                  # Test cases
+├── requirements.txt
+└── .env.example
 ```
 
 ---
 
-## RAG Strategies
+## System Flow
 
-| Strategy | File | Key Concept |
-|---|---|---|
-| **Naive RAG** | `core/rag/naive_rag.py` | Embed → top-k retrieve → generate |
-| **Advanced RAG** | `core/rag/advanced_rag.py` | Hybrid search + RRF fusion + cross-encoder reranking |
-| **Corrective RAG (CRAG)** | `core/rag/corrective_rag.py` | Grade relevance → rewrite query if irrelevant → supplement |
-| **Self-RAG** | `core/rag/self_rag.py` | LLM emits RETRIEVE / ISREL / ISSUP critique tokens |
-| **HyDE** | `core/rag/hyde_rag.py` | Generate hypothetical answer doc, embed that for retrieval |
-| **Multi-Query RAG** | `core/rag/multiquery_rag.py` | Generate N query rephrasings → merge deduplicated results |
-| **GraphRAG** | `core/rag/graph_rag.py` | Extract entity graph → traverse for multi-hop reasoning |
+```text
+Documents → Chunking → Embeddings → Vector Store
+                                   ↓
+User Query → RAG / Agents → Retrieval → LLM → Response
+```
 
 ---
 
-## Agent Patterns
-
-| Agent | File | Key Concept |
-|---|---|---|
-| **ReAct** | `core/agents/react_agent.py` | Thought → Action → Observation loop |
-| **Plan-and-Execute** | `core/agents/plan_execute_agent.py` | Step-by-step plan → execute each + optional replan |
-| **Reflection** | `core/agents/reflection_agent.py` | Generate → critique → refine (N rounds) |
-| **Supervisor** | `core/agents/supervisor_agent.py` | LLM routes task to the best sub-agent |
-| **RAG Agent** | `core/agents/rag_agent.py` | ReAct where primary tool is semantic document retrieval |
-| **Multi-Agent** | `core/agents/multi_agent.py` | Decompose → parallel specialists → synthesize |
-
----
-
-## Chunking Strategies
+# 🧠 Supported RAG Strategies
 
 | Strategy | Description |
-|---|---|
-| `recursive` | Paragraph → sentence → word recursive splitting with overlap |
-| `semantic` | Cosine-distance breakpoints between sentence embeddings |
-| `parent_child` | Large parent chunks index; small child chunks retrieved |
-| `sentence_window` | Single-sentence retrieval unit with ±N sentence window for context |
+|----------|-------------|
+| Naive RAG | Basic retrieve + generate |
+| Advanced RAG | Hybrid retrieval + reranking |
+| Corrective RAG | Query correction + relevance grading |
+| Self-RAG | Self-evaluation based retrieval |
+| HyDE | Hypothetical document embeddings |
+| Multi-Query RAG | Query expansion for better recall |
+| GraphRAG | Graph-based multi-hop reasoning |
 
 ---
 
-## Quick Start
+# 🤖 Supported Agent Patterns
 
-### 1. Configure environment
+| Agent Type | Description |
+|------------|-------------|
+| ReAct | Reasoning + tool usage loop |
+| Plan-and-Execute | Planning before execution |
+| Reflection | Self-critique and refinement |
+| Supervisor | Task routing to sub-agents |
+| RAG Agent | Retrieval-first agent |
+| Multi-Agent | Parallel specialized agents |
+
+---
+
+# 📦 Chunking Strategies
+
+| Strategy | Description |
+|----------|-------------|
+| Recursive | Recursive split with overlap |
+| Semantic | Embedding similarity-based splitting |
+| Parent-Child | Parent-child chunk hierarchy |
+| Sentence Window | Sentence retrieval with context window |
+
+---
+
+# ⚙️ Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| API | FastAPI |
+| LLM | Azure OpenAI |
+| Vector DB | ChromaDB |
+| Agent Framework | LangChain / LangGraph |
+| Reranking | FlashRank / Cohere |
+| Embeddings | Sentence Transformers |
+| Document Parsing | PyMuPDF |
+
+---
+
+# 🚀 Quick Start
+
+## 1. Clone Repository
+
+```bash
+git clone <repo-url>
+cd rag-agent-system
+```
+
+---
+
+## 2. Configure Environment
 
 ```bash
 cp .env.example .env
-# Fill in AZURE_OPENAI_API_KEY, AZURE_OPENAI_ENDPOINT, etc.
 ```
 
-### 2. Install dependencies
+Configure:
+
+```env
+AZURE_OPENAI_API_KEY=
+AZURE_OPENAI_ENDPOINT=
+AZURE_OPENAI_DEPLOYMENT=
+CHROMA_DB_PATH=
+```
+
+---
+
+## 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. Run the API
+---
+
+## 4. Run Locally
 
 ```bash
 uvicorn app.main:app --reload --port 8000
 ```
 
-Open <http://localhost:8000/docs> for the interactive Swagger UI.
+Open Swagger UI:
 
-### 4. Docker
+```bash
+http://localhost:8000/docs
+```
+
+---
+
+## 5. Run with Docker
 
 ```bash
 cd docker
@@ -109,64 +204,81 @@ docker-compose up --build
 
 ---
 
-## API Quick Reference
+# 📡 API Endpoints
 
-### Upload a document
+| Endpoint | Description |
+|----------|-------------|
+| `/documents/ingest` | Upload and process documents |
+| `/rag/query` | Query using selected RAG strategy |
+| `/agents/run` | Execute agent workflows |
+| `/chat` | Standard chat |
+| `/chat/stream` | Streaming chat |
+
+---
+
+# Example Usage
+
+## Document Upload
 
 ```bash
 curl -X POST http://localhost:8000/api/v1/documents/ingest \
-  -F "file=@report.pdf" \
-  -F "collection_name=mydata" \
-  -F "chunk_strategy=sentence_window"
-```
-
-### RAG query
-
-```bash
-curl -X POST http://localhost:8000/api/v1/rag/query \
-  -H "Content-Type: application/json" \
-  -d '{
-    "query": "What are the key findings?",
-    "strategy": "corrective",
-    "collection_name": "mydata",
-    "top_k": 5
-  }'
-```
-
-### Run an agent
-
-```bash
-curl -X POST http://localhost:8000/api/v1/agents/run \
-  -H "Content-Type: application/json" \
-  -d '{
-    "task": "Summarize the main themes in the uploaded documents and calculate total word count.",
-    "agent_type": "rag_agent",
-    "max_iterations": 8
-  }'
-```
-
-### Streaming chat
-
-```bash
-curl -N -X POST http://localhost:8000/api/v1/chat/stream \
-  -H "Content-Type: application/json" \
-  -d '{
-    "messages": [{"role": "user", "content": "What is RAG?"}],
-    "rag_strategy": "advanced",
-    "collection_name": "mydata"
-  }'
+-F "file=@report.pdf" \
+-F "collection_name=mydata" \
+-F "chunk_strategy=sentence_window"
 ```
 
 ---
 
-## Key Dependencies
+## RAG Query
 
-| Package | Purpose |
-|---|---|
-| `fastapi` | Async API framework |
-| `openai` | Azure OpenAI SDK |
-| `chromadb` | Local persistent vector store |
-| `langchain` / `langgraph` | Orchestration utilities |
-| `flashrank` | Local cross-encoder reranking |
-| `sentence-transformers` | Semantic chunking embeddings |
-| `pymupdf` | PDF text extraction |
+```bash
+curl -X POST http://localhost:8000/api/v1/rag/query \
+-H "Content-Type: application/json" \
+-d '{
+  "query": "What are the key findings?",
+  "strategy": "corrective",
+  "collection_name": "mydata",
+  "top_k": 5
+}'
+```
+
+---
+
+## Agent Execution
+
+```bash
+curl -X POST http://localhost:8000/api/v1/agents/run \
+-H "Content-Type: application/json" \
+-d '{
+  "task": "Summarize document insights",
+  "agent_type": "rag_agent",
+  "max_iterations": 8
+}'
+```
+
+---
+
+# 🔥 Use Cases
+
+- Enterprise AI copilots  
+- AI knowledge assistants  
+- Customer support bots  
+- Research assistants  
+- Multi-agent automation systems  
+- Internal documentation search  
+
+---
+
+# Future Enhancements
+
+- Multi-modal RAG  
+- Graph database integration  
+- Agent memory persistence  
+- Evaluation dashboards  
+- Observability & tracing  
+
+---
+
+# 📄 License
+
+MIT License
