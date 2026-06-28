@@ -1,0 +1,23 @@
+[
+  {
+    "id": "grounded-summary",
+    "query": "Summarize the release checklist",
+    "collection_name": "default",
+    "strategy": "advanced",
+    "expected_keywords": ["release", "checklist", "summary"]
+  },
+  {
+    "id": "policy-extraction",
+    "query": "What does the retention policy say about archives?",
+    "collection_name": "compliance",
+    "strategy": "corrective",
+    "expected_keywords": ["retention", "archives"]
+  },
+  {
+    "id": "entity-reasoning",
+    "query": "How are Mercury and Apollo connected in the documents?",
+    "collection_name": "research",
+    "strategy": "graph_rag",
+    "expected_keywords": ["Mercury", "Apollo", "connected"]
+  }
+]

@@ -1,0 +1,62 @@
+# Core
+fastapi==0.135.3
+uvicorn[standard]==0.42.0
+pydantic==2.12.5
+pydantic-settings==2.13.1
+python-dotenv==1.2.2
+python-multipart==0.0.22
+
+# Azure OpenAI
+openai==2.30.0
+azure-identity==1.25.3
+
+# LangChain (orchestration)
+langchain==1.2.14
+langchain-openai==1.1.12
+langchain-community==0.4.1
+langchain-core==1.2.24
+langgraph==1.1.4
+
+# LlamaIndex (alternative RAG framework)
+llama-index==0.14.19
+llama-index-llms-azure-openai==0.5.3
+llama-index-embeddings-azure-openai==0.5.2
+
+# Vector Stores
+chromadb==1.5.5
+faiss-cpu==1.13.2
+
+# Document Processing
+pypdf==6.9.2
+python-docx==1.2.0
+unstructured==0.22.10
+pymupdf==1.27.2.2
+
+# Text Splitting & NLP
+tiktoken==0.12.0
+sentence-transformers==5.3.0
+spacy==3.8.14
+
+# Reranking
+cohere==5.21.1
+flashrank==0.2.10
+
+# Graph (for GraphRAG)
+networkx==3.6.1
+neo4j==6.1.0
+
+# Web Search Tools
+tavily-python==0.7.23
+duckduckgo-search==8.1.1
+
+# Utilities
+httpx==0.28.1
+aiofiles==25.1.0
+tenacity==9.1.4
+structlog==25.5.0
+rich==14.3.3
+streamlit==1.52.1
+
+# Testing
+pytest==9.0.2
+pytest-asyncio==1.3.0
